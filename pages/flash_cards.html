@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Флеш картки</title>
+  <script type="module" crossorigin src="/assets/flash_cards-CKYdVIdE.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/main-DGxdTxoS.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-BkARXlFc.css">
+</head>
+<body class="d-flex flex-column">
+<header class="container-fluid p-0">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container flex-row px-4">
+      <a class="navbar-brand" href="#">LevelUp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Головна</a></li>
+          <li class="nav-item"><a class="nav-link active" href="flash_cards.html">Флеш картки</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- Привітання -->
+<main class="container-fluid p-0">
+  <div class="container py-4">
+    <h3>Додати нову картку</h3>
+    <form id="add-flashcard-form" class="row g-2">
+      <div class="col-md-5">
+        <input type="text" id="front-text" class="form-control" placeholder="Фронт (запитання)" required>
+      </div>
+      <div class="col-md-5">
+        <input type="text" id="back-text" class="form-control" placeholder="Зворот (відповідь)" required>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-success w-100">Додати</button>
+      </div>
+    </form>
+    <p id="limit-warning" class="text-danger mt-2 d-none">Максимум 15 карток.</p>
+  </div>
+  <div class="container py-5">
+    <h1 class="mb-4 text-center">Мої флеш-картки</h1>
+    <div id="flashcard-list" class="d-flex flex-wrap justify-content-center gap-3"></div>
+  </div>
+
+  <template id="flashcard-template">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front text-center"></div>
+        <div class="flip-card-back text-center"></div>
+      </div>
+      <button class="btn btn-danger btn-sm delete-btn">Видалити</button>
+    </div>
+
+  </template>
+</main>
+<footer class="bg-dark container-fluid text-white text-center py-4 mt-auto">
+  <div class="container-fluid px-4">
+    <p class="mb-0">&copy; 2025 LevelUp. Усі права захищено.</p>
+  </div>
+</footer>
+</body>
+</html>

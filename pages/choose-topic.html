@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Виберіть тему</title>
+  <script type="module" crossorigin src="/assets/choose_topic-BeMnDw9K.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/main-DGxdTxoS.js">
+  <link rel="modulepreload" crossorigin href="/assets/tests-Busmpe0m.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-BkARXlFc.css">
+</head>
+<body class="d-flex flex-column">
+<header class="container-fluid p-0">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container flex-row px-4">
+      <a class="navbar-brand" href="#">LevelUp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Головна</a></li>
+          <li class="nav-item"><a class="nav-link" href="flash_cards.html">Флеш картки</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- Привітання -->
+<main>
+  <div class="container py-5">
+    <h1 id="subjectTitle" class="text-center mb-4"></h1>
+    <div class="row" id="topicList"></div>
+  </div>
+
+  <template id="topicTemplate">
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card shadow h-100">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title"></h5>
+          <p class="card-text text-secondary small"></p>
+          <div class="mt-auto">
+            <button class="btn btn-success w-100">Почати тест</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</main>
+<footer class="bg-dark container-fluid text-white text-center py-4 mt-auto">
+  <div class="container-fluid px-4">
+    <p class="mb-0">&copy; 2025 LevelUp. Усі права захищено.</p>
+  </div>
+</footer>
+</body>
+</html>

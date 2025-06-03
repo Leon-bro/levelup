@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Проходження тесту</title>
+  <style>
+    .question-card {
+      animation: fade-in 0.4s ease-in-out;
+    }
+
+    @keyframes fade-in {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/test-kej01-u3.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/main-DGxdTxoS.js">
+  <link rel="modulepreload" crossorigin href="/assets/tests-Busmpe0m.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-BkARXlFc.css">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+  <h2 id="test-title" class="mb-4"></h2>
+  <div id="question-container"></div>
+  <div id="result-container" class="d-none mt-4">
+    <h3>Результат:</h3>
+    <p id="score-text"></p>
+    <button class="btn btn-primary" onclick="location.href='index.html'">На головну</button>
+  </div>
+</div>
+
+</body>
+</html>

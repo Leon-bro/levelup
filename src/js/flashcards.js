@@ -1,14 +1,29 @@
-const flashcardList = document.getElementById('flashcard-list');
+// 📁 src/js/flashcards.js
+import subjects from "../data/tests.json";
+window.BASE_URL = import.meta.env.BASE_URL;
+const flashcardSections = document.getElementById('flashcard-sections');
 const template = document.getElementById('flashcard-template');
 const form = document.getElementById('add-flashcard-form');
 const frontInput = document.getElementById('front-text');
 const backInput = document.getElementById('back-text');
+const subjectSelect = document.getElementById('subject-select');
 const warning = document.getElementById('limit-warning');
 
+// Заповнення select предметами
+subjects.tests.forEach(subject => {
+    const opt = document.createElement('option');
+    opt.value = subject.slug;
+    opt.textContent = subject.subject;
+    subjectSelect.appendChild(opt);
+});
+
+// Завантаження карток з localStorage
 let flashcards = JSON.parse(localStorage.getItem('flashcards')) || [];
 
+// Перший рендер
 renderFlashcards();
 
+// Додавання нової картки
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -21,9 +36,10 @@ form.addEventListener('submit', (e) => {
 
     const front = frontInput.value.trim();
     const back = backInput.value.trim();
+    const subject = subjectSelect.value;
 
-    if (front && back) {
-        flashcards.push({ front, back });
+    if (front && back && subject) {
+        flashcards.push({ front, back, subject });
         localStorage.setItem('flashcards', JSON.stringify(flashcards));
         form.reset();
         renderFlashcards();
@@ -31,55 +47,87 @@ form.addEventListener('submit', (e) => {
 });
 
 function renderFlashcards() {
-    flashcardList.innerHTML = '';
-    flashcards.forEach((card, index) => {
-        const clone = template.content.cloneNode(true);
-        const front = clone.querySelector('.flip-card-front');
-        const back = clone.querySelector('.flip-card-back');
-        const cardElement = clone.querySelector('.flip-card');
-        const deleteBtn = clone.querySelector('.delete-btn');
-        const inner = clone.querySelector('.flip-card-inner');
+    flashcardSections.innerHTML = '<h1 class="mb-4 text-center">Мої флеш-картки</h1>';
 
-        front.textContent = card.front;
-        back.textContent = card.back;
+    subjects.tests.forEach(subject => {
+        const cardsBySubject = flashcards.filter(card => card.subject === subject.slug);
+        if (cardsBySubject.length === 0) return;
 
-        let flipTimeout;
+        const subjectBlock = document.createElement('div');
+        subjectBlock.className = "mb-5";
 
-        // Наведення для десктопів
-        cardElement.addEventListener('mouseenter', () => {
-            flipTimeout = setTimeout(() => {
-                cardElement.classList.add('hovering');
-            }, 1500);
-        });
+        const titleRow = document.createElement('div');
+        titleRow.className = "d-flex align-items-center mb-3 gap-3";
 
-        cardElement.addEventListener('mouseleave', () => {
-            clearTimeout(flipTimeout);
-            cardElement.classList.remove('hovering');
-        });
+        const img = document.createElement('img');
+        img.src = window.BASE_URL + `${subject.image}`;
+        img.alt = subject.subject;
+        img.width = 50;
+        img.height = 50;
 
-        // Торкання для мобільних
-        cardElement.addEventListener('touchend', (e) => {
-            const isFlipped = cardElement.classList.contains('flipped');
-            // Перевірка, чи натиснули не на кнопку
-            if (!e.target.classList.contains('delete-btn')) {
-                cardElement.classList.toggle('flipped', !isFlipped);
-                // Автоматичне повернення назад через 3с
-                if (!isFlipped) {
-                    setTimeout(() => {
-                        cardElement.classList.remove('flipped');
-                    }, 1500);
+        const title = document.createElement('h4');
+        title.textContent = subject.subject;
+
+        titleRow.appendChild(img);
+        titleRow.appendChild(title);
+        subjectBlock.appendChild(titleRow);
+
+        const container = document.createElement('div');
+        container.className = "d-flex flex-wrap gap-3";
+
+        cardsBySubject.forEach((card, index) => {
+            const clone = template.content.cloneNode(true);
+            const front = clone.querySelector('.flip-card-front');
+            const back = clone.querySelector('.flip-card-back');
+            const cardElement = clone.querySelector('.flip-card');
+            const deleteBtn = clone.querySelector('.delete-btn');
+
+            front.textContent = card.front;
+            back.textContent = card.back;
+
+            let flipTimeout;
+
+            cardElement.addEventListener('mouseenter', () => {
+                flipTimeout = setTimeout(() => {
+                    cardElement.classList.add('hovering');
+                }, 500);
+            });
+
+            cardElement.addEventListener('mouseleave', () => {
+                clearTimeout(flipTimeout);
+                cardElement.classList.remove('hovering');
+            });
+
+            cardElement.addEventListener('touchend', (e) => {
+                const isFlipped = cardElement.classList.contains('flipped');
+                if (!e.target.classList.contains('delete-btn')) {
+                    cardElement.classList.toggle('flipped', !isFlipped);
+                    if (!isFlipped) {
+                        setTimeout(() => {
+                            cardElement.classList.remove('flipped');
+                        }, 500);
+                    }
                 }
-            }
+            });
+
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const globalIndex = flashcards.findIndex((fc, i) =>
+                    fc.front === card.front &&
+                    fc.back === card.back &&
+                    fc.subject === card.subject
+                );
+                if (globalIndex !== -1) {
+                    flashcards.splice(globalIndex, 1);
+                    localStorage.setItem('flashcards', JSON.stringify(flashcards));
+                    renderFlashcards();
+                }
+            });
+
+            container.appendChild(clone);
         });
 
-        // Кнопка видалення
-        deleteBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            flashcards.splice(index, 1);
-            localStorage.setItem('flashcards', JSON.stringify(flashcards));
-            renderFlashcards();
-        });
-
-        flashcardList.appendChild(clone);
+        subjectBlock.appendChild(container);
+        flashcardSections.appendChild(subjectBlock);
     });
 }

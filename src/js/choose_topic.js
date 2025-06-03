@@ -1,4 +1,5 @@
 import tests from "../data/tests.json"
+window.BASE_URL = import.meta.env.BASE_URL;
 const data = tests.tests
 
 const query = new URLSearchParams(window.location.search);
@@ -17,7 +18,7 @@ if (!subject) {
         clone.querySelector('.card-title').textContent = topic.title;
         clone.querySelector('.card-text').textContent = topic.description;
         clone.querySelector('.btn').addEventListener("click", () => {
-            window.location.href = `/pages/test.html?subject=${slug}&topic=${topic.slug}`;
+            window.location.href = window.BASE_URL + `pages/test.html?subject=${slug}&topic=${topic.slug}`;
         });
         container.appendChild(clone);
     });

@@ -1,7 +1,7 @@
 {
   "name": "test_website",
   "private": true,
-  "homepage": "https://github.com/Leon-bro/levelup.git",
+  "homepage": "https://Leon-bro.github.io/levelup",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="uk">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Флеш картки</title>
-  <script type="module" crossorigin src="/levelup/assets/flash_cards-CKYdVIdE.js"></script>
-  <link rel="modulepreload" crossorigin href="/levelup/assets/main-DGxdTxoS.js">
-  <link rel="stylesheet" crossorigin href="/levelup/assets/main-BkARXlFc.css">
+  <link rel="stylesheet" href="../styles/main.css">
+  <script type="module" crossorigin src="/levelup/assets/flash_cards-LlbSibKO.js"></script>
+  <link rel="modulepreload" crossorigin href="/levelup/assets/tests-BffcDKuV.js">
+  <link rel="stylesheet" crossorigin href="/levelup/assets/tests-BkARXlFc.css">
 </head>
 <body class="d-flex flex-column">
 <header class="container-fluid p-0">
@@ -25,27 +26,31 @@
     </div>
   </nav>
 </header>
-<!-- Привітання -->
-<main class="container-fluid p-0">
-  <div class="container py-4">
-    <h3>Додати нову картку</h3>
-    <form id="add-flashcard-form" class="row g-2">
-      <div class="col-md-5">
-        <input type="text" id="front-text" class="form-control" placeholder="Фронт (запитання)" required>
-      </div>
-      <div class="col-md-5">
-        <input type="text" id="back-text" class="form-control" placeholder="Зворот (відповідь)" required>
-      </div>
-      <div class="col-md-2">
-        <button type="submit" class="btn btn-success w-100">Додати</button>
-      </div>
-    </form>
+
+<main class="container py-4">
+  <h3>Додати нову картку</h3>
+  <form id="add-flashcard-form" class="row g-2">
+    <div class="col-md-3">
+      <input type="text" id="front-text" class="form-control" placeholder="Фронт (запитання)" required>
+    </div>
+    <div class="col-md-3">
+      <input type="text" id="back-text" class="form-control" placeholder="Зворот (відповідь)" required>
+    </div>
+    <div class="col-md-3">
+      <select id="subject-select" class="form-select" required>
+        <option value="">Оберіть предмет</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-success w-100">Додати</button>
+    </div>
     <p id="limit-warning" class="text-danger mt-2 d-none">Максимум 15 карток.</p>
-  </div>
-  <div class="container py-5">
+  </form>
+
+  <section id="flashcard-sections" class="py-5">
     <h1 class="mb-4 text-center">Мої флеш-картки</h1>
-    <div id="flashcard-list" class="d-flex flex-wrap justify-content-center gap-3"></div>
-  </div>
+    <!-- картки за категоріями будуть вставлені тут -->
+  </section>
 
   <template id="flashcard-template">
     <div class="flip-card">
@@ -55,13 +60,14 @@
       </div>
       <button class="btn btn-danger btn-sm delete-btn">Видалити</button>
     </div>
-
   </template>
 </main>
+
 <footer class="bg-dark container-fluid text-white text-center py-4 mt-auto">
   <div class="container-fluid px-4">
     <p class="mb-0">&copy; 2025 LevelUp. Усі права захищено.</p>
   </div>
-</footer>
+</footer>
+
 </body>
 </html>
